@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
 import { Platform } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
@@ -12,28 +12,11 @@ import AddDeck from "./components/AddDeck";
 import Deck from "./components/Deck";
 import Decks from "./components/Decks";
 
-const DeckStack = createAppContainer(
-  createStackNavigator({
-    Decks: {
-      screen: Decks,
-      navigationOptions: () => ({
-        title: `Decks`
-      })
-    },
-    Deck: {
-      screen: Deck,
-      navigationOptions: () => ({
-        title: `Deck`
-      })
-    }
-  })
-);
-
-export const Tabs = createAppContainer(
+const Tabs =
   Platform.OS === "ios"
     ? createBottomTabNavigator({
         Decks: {
-          screen: DeckStack,
+          screen: Decks,
           navigationOptions: {
             tabBarIcon: () => (
               <FontAwesome name="folder" size={20} color="black" />
@@ -51,7 +34,7 @@ export const Tabs = createAppContainer(
       })
     : createMaterialBottomTabNavigator({
         Decks: {
-          screen: DeckStack,
+          screen: Decks,
           navigationOptions: {
             tabBarIcon: () => (
               <FontAwesome name="folder" size={20} color="white" />
@@ -66,5 +49,32 @@ export const Tabs = createAppContainer(
             )
           }
         }
-      })
+      });
+
+export const Stack = createAppContainer(
+  createStackNavigator(
+    {
+      Decks: {
+        screen: Tabs,
+        navigationOptions: () => ({
+          title: `Decks`
+        })
+      },
+      Deck: {
+        screen: Deck,
+        navigationOptions: () => ({
+          title: `Deck`
+        })
+      },
+      AddDeck: {
+        screen: Tabs,
+        navigationOptions: () => ({
+          title: `Add Deck`
+        })
+      }
+    },
+    {
+      initialRouteName: "Decks"
+    }
+  )
 );

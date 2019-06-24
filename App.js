@@ -3,7 +3,7 @@ import { createStore } from "redux";
 import { Provider } from "react-redux";
 import reducer from "./reducers/";
 import middleware from "./middleware";
-import { Tabs } from "./navigators";
+import { Stack } from "./navigators";
 import { StatusBar, View } from "react-native";
 import Constants from "expo-constants";
 const store = createStore(reducer, middleware);
@@ -15,7 +15,7 @@ function App() {
         <View style={{ height: Constants.statusBarHeight }}>
           <StatusBar barStyle="dark-content" />
         </View>
-        <Tabs />
+        <Stack />
       </View>
     </Provider>
   );
