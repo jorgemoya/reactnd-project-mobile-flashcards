@@ -33,8 +33,8 @@ class AddDeck extends PureComponent {
     const title = this.state.title;
 
     if (title) {
-      const id = uniqueId("deck");
-      const deck = { [id]: { title } };
+      const key = uniqueId("deck");
+      const deck = { key, title };
       this.props.dispatch(createDeck(deck));
     }
   };
