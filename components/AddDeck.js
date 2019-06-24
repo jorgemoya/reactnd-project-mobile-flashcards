@@ -36,6 +36,10 @@ class AddDeck extends PureComponent {
       const key = uniqueId("deck");
       const deck = { key, title };
       this.props.dispatch(createDeck(deck));
+
+      this.props.navigation.navigate("Deck", {
+        id: key
+      });
     }
   };
 }

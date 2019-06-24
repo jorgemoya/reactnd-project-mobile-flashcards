@@ -3,10 +3,9 @@ import { createStore } from "redux";
 import { Provider } from "react-redux";
 import reducer from "./reducers/";
 import middleware from "./middleware";
-import Tabs from "./components/Tabs";
-import { StatusBar, View, Text } from "react-native";
+import { Tabs } from "./navigators";
+import { StatusBar, View } from "react-native";
 import Constants from "expo-constants";
-
 const store = createStore(reducer, middleware);
 
 function App() {
