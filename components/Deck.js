@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Text } from "react-native";
 import { connect } from "react-redux";
+import { deleteDeck } from "./../actions/deck";
 
 class Deck extends React.PureComponent {
   state = {
@@ -26,7 +27,7 @@ class Deck extends React.PureComponent {
           <Cards>0 Cards</Cards>
           <Button title="Add Card" />
           <Button title="Start Quiz" />
-          <Button title="Delete Deck" />
+          <Button title="Delete Deck" onPress={this.handleDelete} />
         </Content>
       </Container>
     );
@@ -35,6 +36,11 @@ class Deck extends React.PureComponent {
   getDeck(id) {
     return this.props.decks.find(deck => deck.key === id);
   }
+
+  handleDelete = () => {
+    this.props.dispatch(deleteDeck(this.state.deck.key));
+    this.props.navigation.navigate("Decks");
+  };
 }
 
 function mapStateToProps(state) {
