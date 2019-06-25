@@ -1,6 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
+import {
+  clearLocalNotifications,
+  setLocalNotification
+} from "../utils/helpers";
 
 class Quiz extends React.PureComponent {
   state = {
@@ -19,6 +23,11 @@ class Quiz extends React.PureComponent {
 
   render() {
     const { cards, questionNumber, score } = this.state;
+
+    if (this.state.questionNumber + 1 > cards.length) {
+      console.log('notification');
+      clearLocalNotifications().then(setLocalNotification());
+    }
 
     return cards.length > 0 ? (
       this.state.questionNumber + 1 > cards.length ? (
