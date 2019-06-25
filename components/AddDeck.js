@@ -11,7 +11,7 @@ class AddDeck extends PureComponent {
 
   render() {
     return (
-      <Container>
+      <Container behavior="padding" enabled>
         <Content>
           <Title>What is the title of your new deck?</Title>
           <Input
@@ -33,20 +33,21 @@ class AddDeck extends PureComponent {
     const title = this.state.title;
 
     if (title) {
-      const key = uniqueId("deck");
-      const deck = { key, title };
+      const deck = { key: title };
       this.props.dispatch(createDeck(deck));
 
       this.props.navigation.navigate("Deck", {
-        id: key
+        id: title 
       });
+
+      this.setState({ title: "" });
     }
   };
 }
 
 export default connect()(AddDeck);
 
-const Container = styled.View`
+const Container = styled.KeyboardAvoidingView`
   align-items: center;
   display: flex;
   height: 100%;

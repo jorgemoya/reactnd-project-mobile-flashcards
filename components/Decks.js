@@ -12,14 +12,14 @@ class Decks extends PureComponent {
   renderItem = ({ item }) => {
     handleOnPress = () => {
       this.props.navigation.navigate("Deck", {
-        id: item.key
+        id: item.title
       });
     };
 
     return (
       <ListItem>
         <TouchableOpacity onPress={handleOnPress}>
-          <Title>{item.title}</Title>
+          <Title>{item.key}</Title>
           <Cards>0 cards</Cards>
         </TouchableOpacity>
       </ListItem>

@@ -57,19 +57,13 @@ export const Stack = createAppContainer(
       Decks: {
         screen: Tabs,
         navigationOptions: () => ({
-          title: `Decks`
+          header: null
         })
       },
       Deck: {
         screen: Deck,
         navigationOptions: () => ({
           title: `Deck`
-        })
-      },
-      AddDeck: {
-        screen: Tabs,
-        navigationOptions: () => ({
-          title: `Add Deck`
         })
       }
     },

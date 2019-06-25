@@ -1,4 +1,4 @@
-let counter = 4;
+let counter = 0;
 
 export function uniqueId(prefix) {
   counter += 1;

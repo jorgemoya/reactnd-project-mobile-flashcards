@@ -1,22 +1,24 @@
 import React from "react";
-import { createStore } from "redux";
 import { Provider } from "react-redux";
-import reducer from "./reducers/";
-import middleware from "./middleware";
 import { Stack } from "./navigators";
 import { StatusBar, View } from "react-native";
 import Constants from "expo-constants";
-const store = createStore(reducer, middleware);
+import { PersistGate } from "redux-persist/integration/react";
+import configureStore from "./configureStore";
+
+const { persistor, store } = configureStore();
 
 function App() {
   return (
     <Provider store={store}>
-      <View style={{ flex: 1 }}>
-        <View style={{ height: Constants.statusBarHeight }}>
-          <StatusBar barStyle="dark-content" />
+      <PersistGate loading={null} persistor={persistor}>
+        <View style={{ flex: 1 }}>
+          <View style={{ height: Constants.statusBarHeight }}>
+            <StatusBar barStyle="dark-content" />
+          </View>
+          <Stack />
         </View>
-        <Stack />
-      </View>
+      </PersistGate>
     </Provider>
   );
 }
