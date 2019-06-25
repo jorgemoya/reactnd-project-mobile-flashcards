@@ -2,7 +2,6 @@ import React, { PureComponent } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { createDeck } from "./../actions/deck";
-import { uniqueId } from "./../utils/uniqueId";
 
 class AddDeck extends PureComponent {
   state = {
@@ -37,7 +36,7 @@ class AddDeck extends PureComponent {
       this.props.dispatch(createDeck(deck));
 
       this.props.navigation.navigate("Deck", {
-        id: title 
+        id: title
       });
 
       this.setState({ title: "" });

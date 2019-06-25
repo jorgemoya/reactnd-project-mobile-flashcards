@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { Text } from "react-native";
 import { connect } from "react-redux";
 import { deleteDeck } from "./../actions/deck";
+import CardCounter from "./CardCounter";
 
 class Deck extends React.PureComponent {
   state = {
@@ -11,8 +11,8 @@ class Deck extends React.PureComponent {
 
   componentDidMount() {
     const { navigation } = this.props;
-    const id = navigation.getParam("id");
-    const deck = this.getDeck(id);
+    const key = navigation.getParam("key");
+    const deck = this.getDeck(key);
 
     if (deck) {
       this.setState({ deck });
@@ -23,19 +23,31 @@ class Deck extends React.PureComponent {
     return (
       <Container>
         <Content>
-          <Title>{this.state.deck.title}</Title>
-          <Cards>0 Cards</Cards>
-          <Button title="Add Card" />
-          <Button title="Start Quiz" />
+          <Title>{this.state.deck.key}</Title>
+          <CardCounter deck={this.state.deck.key} />
+          <Button title="Add Card" onPress={this.handleAddCard} />
+          <Button title="Start Quiz" onPress={this.handleStartQuiz} />
           <Button title="Delete Deck" onPress={this.handleDelete} />
         </Content>
       </Container>
     );
   }
 
-  getDeck(id) {
-    return this.props.decks.find(deck => deck.key === id);
+  getDeck(key) {
+    return this.props.decks.find(deck => deck.key === key);
   }
+
+  handleAddCard = () => {
+    this.props.navigation.navigate("AddCard", {
+      key: this.state.deck.key
+    });
+  };
+
+  handleStartQuiz = () => {
+    this.props.navigation.navigate("Quiz", {
+      key: this.state.deck.key
+    });
+  };
 
   handleDelete = () => {
     this.props.dispatch(deleteDeck(this.state.deck.key));
@@ -67,20 +79,6 @@ const Content = styled.View`
 
 const Title = styled.Text`
   font-size: 20px;
-`;
-
-const Cards = styled.Text`
-  color: gray;
-  font-size: 18px;
-`;
-
-const Input = styled.TextInput`
-  border-radius: 5px;
-  border: 1px solid gray;
-  font-size: 18px;
-  height: 40px;
-  text-align: center;
-  width: 300px;
 `;
 
 const Button = styled.Button`

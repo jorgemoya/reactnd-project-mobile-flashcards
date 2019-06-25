@@ -3,6 +3,7 @@ import { FlatList } from "react-native";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import CardCounter from "./CardCounter";
 
 class Decks extends PureComponent {
   render() {
@@ -12,7 +13,7 @@ class Decks extends PureComponent {
   renderItem = ({ item }) => {
     handleOnPress = () => {
       this.props.navigation.navigate("Deck", {
-        id: item.title
+        key: item.key
       });
     };
 
@@ -20,7 +21,7 @@ class Decks extends PureComponent {
       <ListItem>
         <TouchableOpacity onPress={handleOnPress}>
           <Title>{item.key}</Title>
-          <Cards>0 cards</Cards>
+          <CardCounter deck={item.key} />
         </TouchableOpacity>
       </ListItem>
     );
@@ -43,10 +44,4 @@ const ListItem = styled.View`
 
 const Title = styled.Text`
   font-size: 22px;
-`;
-
-const Cards = styled.Text`
-  font-size: 16px;
-  color: gray;
-  margin-top: 2px;
 `;
