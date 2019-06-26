@@ -5,13 +5,19 @@ import { createDeck } from "./../actions/deck";
 
 class AddDeck extends PureComponent {
   state = {
-    title: ""
+    title: "",
+    showError: false
   };
 
   render() {
     return (
       <Container behavior="padding" enabled>
         <Content>
+          {this.state.showError ? (
+            <Error>Please fill out the form</Error>
+          ) : (
+            <></>
+          )}
           <Title>What is the title of your new deck?</Title>
           <Input
             placeholder="Title"
@@ -36,10 +42,12 @@ class AddDeck extends PureComponent {
       this.props.dispatch(createDeck(deck));
 
       this.props.navigation.navigate("Deck", {
-        id: title
+        key: title
       });
 
-      this.setState({ title: "" });
+      this.setState({ title: "", showError: false });
+    } else {
+      this.setState({ showError: true });
     }
   };
 }
@@ -57,6 +65,7 @@ const Content = styled.View`
   display: flex;
   height: 180px;
   justify-content: space-between;
+  align-items: center;
 `;
 
 const Title = styled.Text`
@@ -74,4 +83,9 @@ const Input = styled.TextInput`
 
 const Button = styled.Button`
   padding-top: 10px;
+`;
+
+const Error = styled.Text`
+  color: red;
+  font-size: 20px;
 `;

@@ -34,7 +34,7 @@ class Quiz extends React.PureComponent {
         <Container>
           <Content>
             <Text>
-              You answered {score} questions out of {cards.length}.
+              You answered {score} questions correct out of {cards.length}.
             </Text>
             <Button title="Reset Quiz" onPress={this.handleResetQuiz} />
           </Content>

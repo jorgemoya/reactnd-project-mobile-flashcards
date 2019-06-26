@@ -6,13 +6,21 @@ import { addCard } from "../actions/card";
 class AddCard extends React.PureComponent {
   state = {
     question: "",
-    answer: ""
+    answer: "",
+    showError: false,
+    showSubmitted: false
   };
 
   render() {
     return (
       <Container behavior="padding" enabled>
         <Content>
+          {this.state.showError ? (
+            <Error>Please fill out the form</Error>
+          ) : (
+            <></>
+          )}
+          {this.state.showSubmitted ? <Title>Question submitted</Title> : <></>}
           <Input
             placeholder="Question"
             value={this.state.question}
@@ -41,6 +49,7 @@ class AddCard extends React.PureComponent {
     const { question, answer } = this.state;
 
     if (!question || !answer) {
+      this.setState({ showError: true, showSubmitted: false });
       return;
     }
 
@@ -49,7 +58,12 @@ class AddCard extends React.PureComponent {
 
     this.props.dispatch(addCard(card));
 
-    this.setState({ question: "", answer: "" });
+    this.setState({
+      question: "",
+      answer: "",
+      showError: false,
+      showSubmitted: true
+    });
   };
 }
 
@@ -66,6 +80,7 @@ const Content = styled.View`
   display: flex;
   height: 180px;
   justify-content: space-between;
+  align-items: center;
 `;
 
 const Title = styled.Text`
@@ -83,4 +98,9 @@ const Input = styled.TextInput`
 
 const Button = styled.Button`
   padding-top: 10px;
+`;
+
+const Error = styled.Text`
+  color: red;
+  font-size: 20px;
 `;
